@@ -87,3 +87,10 @@
 - Documentation (README, Postman collection).
 
 ---
+
+## Auteur
+- Nom: Mouhamed DIOUF
+- GitHub: https://github.com/seydi-ahmed
+- Email: diouf.mouhamed3@ugb.edu.sn
+- Numéro: +221776221681
+- Réseaux: [LinkedIn](www.linkedin.com/in/mouhamed-diouf-435207174)
