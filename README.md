@@ -15,7 +15,7 @@
 - Stock minimal/alerte (optionnel).
 - Logs et audit des transactions.
 
-2) Contraintes non-fonctionnelles:
+3) Contraintes non-fonctionnelles:
 - Doit être déployable en conteneur (Docker).
 - Réactivité temps réel pour le dashboard (latence <1s idéal).
 - Persistance via base relationnelle (H2 pour dev, PostgreSQL en prod).
@@ -93,4 +93,4 @@
 - GitHub: https://github.com/seydi-ahmed
 - Email: diouf.mouhamed3@ugb.edu.sn
 - Numéro: +221776221681
-- Réseaux: [LinkedIn](www.linkedin.com/in/mouhamed-diouf-435207174)
+- LinkedIn: www.linkedin.com/in/mouhamed-diouf-435207174
