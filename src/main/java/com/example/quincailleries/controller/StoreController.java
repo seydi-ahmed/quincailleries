@@ -1,6 +1,7 @@
 package com.example.quincailleries.controller;
 
 import com.example.quincailleries.model.Quincailleries;
+import com.example.quincailleries.repository.QuincailleriesRepository;
 import com.example.quincailleries.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 public class StoreController {
 
     private final InventoryService inventoryService;
+    private final QuincailleriesRepository repository;
 
     @GetMapping
     public List<Quincailleries> getAll() {
@@ -38,4 +40,17 @@ public class StoreController {
         inventoryService.deleteQuincailleries(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Quincailleries> updateQuincaillerie(@PathVariable Long id,
+            @RequestBody Quincailleries quincaillerie) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setNom(quincaillerie.getNom());
+                    existing.setAdresse(quincaillerie.getAdresse());
+                    return ResponseEntity.ok(repository.save(existing));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 }
