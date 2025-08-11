@@ -1,9 +1,9 @@
 package com.example.quincailleries.model;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -11,9 +11,8 @@ import lombok.*;
 @Entity
 @Table(name = "quincailleries")
 public class Quincailleries {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.INDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nom;
@@ -22,5 +21,4 @@ public class Quincailleries {
 
     @OneToMany(mappedBy = "quincailleries", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> produits;
-
 }
