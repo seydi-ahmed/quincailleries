@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "f56d661a-d6b2-470d-8d3a-57b7c8ded588",
+		"name": "Quincaillerie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19858935"
+	},
+	"item": [
+		{
+			"name": "Lister Les Quincailleries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Récupérer une quincaillerie par ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/1S",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"1S"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Créer une nouvelle quincaillerie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nom\": \"LeGrand\",\n  \"adresse\": \"HLM Grand Médine\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mettre à jour une quincaillerie",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nom\": \"Nouvelle Zeyna\",\n  \"adresse\": \"50 avenue des Champs\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer une quincaillerie",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lister tous les produits d’une quincaillerie",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/3/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"3",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Récupérer un produit par ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/1/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"1",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Créer un produit dans une quincaillerie",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nom\": \"Tournevis electrique\",\n  \"prix\": 50,\n  \"quantite\": 45\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mettre à jour un produit",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nom\": \"Tournevis électrique 2\",\n  \"prix\": 15.0,\n  \"quantite\": 60\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/1/products/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"1",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Supprimer un produit",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/3/products/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"3",
+						"products",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajouter une transaction de stock (changement de quantité)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/1/products/1/stock/update?quantiteChange=12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"1",
+						"products",
+						"1",
+						"stock",
+						"update"
+					],
+					"query": [
+						{
+							"key": "quantiteChange",
+							"value": "12"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lister les transactions de stock pour un produit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/quincailleries/3/products/1/stock/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"quincailleries",
+						"3",
+						"products",
+						"1",
+						"stock",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
