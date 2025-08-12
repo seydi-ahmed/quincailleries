@@ -1,0 +1,164 @@
+/* Reset & base */
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f6f8;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header */
+header {
+  background: #0078d7;
+  color: white;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+
+/* Main content */
+main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Sidebar */
+aside {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding: 1rem 1.5rem;
+  overflow-y: auto;
+}
+
+aside h2 {
+  margin-top: 0;
+  font-weight: 600;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #0078d7;
+  padding-bottom: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.store-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.store-list li {
+  margin-bottom: 0.8rem;
+}
+
+.store-list button {
+  width: 100%;
+  background: #e1eaff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.store-list button:hover {
+  background: #a3c1ff;
+}
+
+.store-list button.active {
+  background: #005aab;
+  color: white;
+}
+
+/* Section Produits */
+.products-section {
+  flex: 1;
+  padding: 1rem 2rem;
+  overflow-y: auto;
+}
+
+.products-section h2 {
+  margin-top: 0;
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #0078d7;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 0 12px rgb(0 0 0 / 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead {
+  background: #0078d7;
+  color: white;
+}
+
+th, td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background: #f0f8ff;
+}
+
+button {
+  background: #0078d7;
+  border: none;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  margin-right: 0.4rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  background: #005aab;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Error message */
+.error {
+  margin-top: 1rem;
+  color: #cc0000;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Footer */
+footer {
+  background: #f0f0f0;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #ddd;
+}

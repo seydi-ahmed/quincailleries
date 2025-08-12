@@ -73,7 +73,7 @@ public class InventoryService {
         productRepository.save(produit);
 
         StockTransaction transaction = new StockTransaction();
-        transaction.setProduit(produit);
+        transaction.setProduct(produit);
         transaction.setQuantiteChange(quantiteChange);
         transaction.setDateTransaction(LocalDateTime.now());
         return stockTransactionRepository.save(transaction);
