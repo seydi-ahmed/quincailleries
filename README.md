@@ -16,24 +16,27 @@ Ce projet est une application de gestion de quincailleries, permettant d’ajout
 
 1. Assure-toi d’avoir Java 17+ et Maven installés.
 2. Place-toi dans le dossier `backend`.
-3. Lance l’application:
+3. Lance l’application.
+- cd backend
 - mvn spring-boot:run
 
 ### Frontend
 
 1. Place-toi dans le dossier frontend.
-2. Installe les dépendances:
+2. Installe les dépendances.
+3. Démarre le serveur de développement.
+- cd frontend
 - npm install
-3. Démarre le serveur de développement:
 - npm start
 
+--> http://localhost:3000
 
 ---
 
 ## Ou Tester via Postman
 - Installer Postman
-- Importer le fichier **Quincaillerie.postman_collection.json** qui est dans la racine
-- Faire les tests
+- Importer le fichier **Quincaillerie.postman_collection.json** qui est à la racine du projet
+- exécuter les tests les tests
 
 ---
 

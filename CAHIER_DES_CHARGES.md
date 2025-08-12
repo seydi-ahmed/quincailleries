@@ -57,4 +57,3 @@ Le projet vise à développer une application permettant la gestion de plusieurs
 - Documentation README pour installation, démarrage et utilisation.
 - Fichier .gitignore adapté aux deux parties.
 - Cahier des charges.
-- Jeu de données de test (exemple).
