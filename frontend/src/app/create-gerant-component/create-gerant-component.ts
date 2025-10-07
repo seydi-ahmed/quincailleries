@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-gerant',
-  templateUrl: './create-gerant.html',
-  styleUrls: ['./create-gerant.scss'],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: './create-gerant-component.html',
+  styleUrls: ['./create-gerant-component.scss'],
 })
 export class CreateGerantComponent {
   form: FormGroup;

@@ -10,9 +10,7 @@
         <a *ngIf="!authService.isLoggedIn()" routerLink="/register">Inscription</a>
         <a *ngIf="authService.isLoggedIn()" routerLink="/dashboard">Dashboard</a>
         <a *ngIf="authService.isLoggedIn()" routerLink="/stores">Mes quincailleries</a>
-        <button *ngIf="authService.isLoggedIn()" (click)="logout()" class="btn btn-accent">
-          Déconnexion
-        </button>
+        <a *ngIf="authService.isLoggedIn()" (click)="logout()" class="btn btn-accent" routerLink="/login"> Déconnexion </a>
       </div>
     </div>
   </nav>

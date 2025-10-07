@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { StoreService } from '../services/store';
-import { ProductService } from '../services/product';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Router } from "@angular/router";
+import { StoreService } from "../services/store";
+import { ProductService } from "../services/product";
 
 @Component({
-  selector: 'app-dashboard',
+  selector: "app-dashboard",
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss',
+  templateUrl: "./dashboard.html",
+  styleUrls: ["./dashboard.scss"],
 })
 export class DashboardComponent implements OnInit {
   stores: any[] = [];
   totalProducts: number = 0;
   isLoading: boolean = true;
-  errorMessage: string = '';
+  errorMessage: string = "";
+  isLoadingProducts: boolean = false;
 
   constructor(
     private storeService: StoreService,
@@ -25,6 +26,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserData();
+    this.productService.productsChanged$.subscribe(() => {
+      this.calculateTotalProducts();
+    });
+  }
+
+  reloadDashboard(): void {
+    this.router.navigateByUrl("/", { skipLocationChange: true }).then(() => {
+      this.router.navigate(["/dashboard"]);
+    });
   }
 
   loadUserData(): void {
@@ -46,8 +56,8 @@ export class DashboardComponent implements OnInit {
     this.totalProducts = 0;
     if (this.stores.length === 0) return;
 
-    // Pour chaque store, charger les produits et compter
-    this.stores.forEach((store, index) => {
+    // On charge les produits de chaque quincaillerie et on additionne
+    this.stores.forEach((store) => {
       this.productService.getStoreProducts(store.id).subscribe({
         next: (products) => {
           this.totalProducts += products.length;
@@ -67,10 +77,10 @@ export class DashboardComponent implements OnInit {
   }
 
   navigateToStore(storeId: number): void {
-    this.router.navigate(['/stores', storeId, 'products']);
+    this.router.navigate(["/stores", storeId, "products"]);
   }
 
   navigateToCreateStore(): void {
-    this.router.navigate(['/stores/new']);
+    this.router.navigate(["/stores/new"]);
   }
 }

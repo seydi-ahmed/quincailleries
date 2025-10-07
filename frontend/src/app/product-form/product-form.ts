@@ -1,27 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../services/product';
-import { StoreService } from '../services/store';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ProductService } from "../services/product";
+import { StoreService } from "../services/store";
 
 @Component({
-  selector: 'app-product-form',
+  selector: "app-product-form",
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './product-form.html',
-  styleUrl: './product-form.scss',
+  templateUrl: "./product-form.html",
+  styleUrl: "./product-form.scss",
 })
 export class ProductFormComponent implements OnInit {
   storeId: number = 0;
   productId: number | null = null;
   isEditMode: boolean = false;
   isLoading: boolean = false;
-  errorMessage: string = '';
+  errorMessage: string = "";
   store: any = null;
 
   productData = {
-    name: '',
+    name: "",
     price: 0,
     stock: 0,
   };
@@ -35,8 +35,8 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.storeId = +params['storeId'];
-      this.productId = params['id'] ? +params['id'] : null;
+      this.storeId = +params["storeId"];
+      this.productId = params["id"] ? +params["id"] : null;
       this.isEditMode = !!this.productId;
 
       this.loadStore();
@@ -63,7 +63,7 @@ export class ProductFormComponent implements OnInit {
         this.store = store;
       },
       error: (error) => {
-        console.error('Erreur lors du chargement de la quincaillerie:', error);
+        console.error("Erreur lors du chargement de la quincaillerie:", error);
       },
     });
   }
@@ -90,7 +90,7 @@ export class ProductFormComponent implements OnInit {
 
   onSubmit(): void {
     this.isLoading = true;
-    this.errorMessage = '';
+    this.errorMessage = "";
 
     const request = this.isEditMode
       ? this.productService.updateProduct(
@@ -103,7 +103,8 @@ export class ProductFormComponent implements OnInit {
     request.subscribe({
       next: () => {
         this.isLoading = false;
-        this.router.navigate(['/stores', this.storeId, 'products']);
+        this.productService["productsChanged"].next(true); // ✅ ajoute cette ligne
+        this.router.navigate(["/stores", this.storeId, "products"]);
       },
       error: (error) => {
         this.errorMessage = error.message;
@@ -113,13 +114,13 @@ export class ProductFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/stores', this.storeId, 'products']);
+    this.router.navigate(["/stores", this.storeId, "products"]);
   }
 
   formatPrice(price: number): string {
-    return new Intl.NumberFormat('fr-FR', {
-      style: 'currency',
-      currency: 'EUR',
+    return new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "EUR",
     }).format(price);
   }
 }
