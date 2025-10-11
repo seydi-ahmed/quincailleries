@@ -1,4 +1,4 @@
 git add .
-git commit -m "introduction générale terminée"
+git commit -m "Mémoire: Word et PowerPoint"
 git push gitea
 git push github
