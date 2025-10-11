@@ -1,4 +1,4 @@
 git add .
-git commit -m "Gérant frontend done"
+git commit -m "introduction générale"
 git push gitea
 git push github
