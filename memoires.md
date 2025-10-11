@@ -82,3 +82,71 @@ UX	        User Experience
 L'ère numérique a fondamentalement transformé le paysage du commerce, poussant l'ensemble des secteurs d'activité, y compris celui des quincailleries, vers une nécessaire digitalisation. Traditionnellement gérée de manière manuelle ou avec des solutions logicielles isolées, la quincaillerie, qu'elle soit une entité unique ou un membre d'un petit réseau, souffre souvent d'une gestion inefficace des stocks, d'un manque de visibilité de son offre et de difficultés dans la centralisation des données.
 La concurrence accrue, les attentes des clients en matière d'information en temps réel et la complexité croissante des inventaires exigent des outils de gestion modernes, performants et accessibles. Pour les propriétaires de plusieurs quincailleries ou pour ceux qui souhaitent une gestion optimisée de leur magasin, une solution logicielle centralisée et multi-utilisateurs représente un avantage concurrentiel majeur.
 C'est dans ce contexte que s'inscrit notre projet : le développement d'une plateforme web centralisée, conçue pour répondre aux défis spécifiques de la gestion des quincailleries, en alliant la robustesse d'une architecture backend d'entreprise à la flexibilité d'une interface utilisateur moderne.
+
+## Problématique
+
+La gestion actuelle des quincailleries, surtout lorsqu'un propriétaire gère plusieurs points de vente ou souhaite offrir une vitrine en ligne, se heurte à plusieurs obstacles majeurs :
+
+1. Gestion Manuelle et Dispersion de l'Information
+La tenue des registres et des inventaires sur papier ou via des tableurs conduit à des erreurs fréquentes, des pertes de temps considérables et une difficulté à obtenir une vue d'ensemble et en temps réel de l'état des stocks.
+
+2. Manque d'Outil Centralisé
+Il existe peu de solutions Software as a Service (SaaS) sur le marché qui permettent à un utilisateur (propriétaire) de gérer facilement et en toute autonomie plusieurs entités indépendantes (multi-quincailleries) tout en assurant une séparation et une sécurité des données.
+
+3. Problèmes de Visibilité
+Les quincailleries n'ont souvent pas d'outil simple pour afficher publiquement leur liste de produits et leurs coordonnées, limitant ainsi leur capacité à attirer une clientèle locale à l'ère du numérique.
+
+4. Défis de Sécurité et de Performance
+Les solutions existantes sont parfois obsolètes, peu sécurisées (faible authentification, absence de chiffrement) et manquent de performance face à un volume croissant de données et d'utilisateurs.
+
+Face à ces constats, la problématique centrale de ce projet peut être formulée ainsi :
+Comment concevoir et réaliser une plateforme web moderne et sécurisée permettant aux propriétaires de quincailleries d'administrer de manière centralisée et efficace la gestion de leurs multiples magasins (stocks, produits) et d'offrir une interface publique dynamique pour la consultation de leur catalogue par les clients ?
+
+## Objectifs du projet
+
+Le présent projet de fin d'études a pour but de répondre à la problématique soulevée par la conception et la réalisation de la plateforme Sama Quincaillerie.
+
+Objectif Principal:
+Développer une application web complète et performante, basée sur l'architecture Microservices/Client-Serveur avec Spring Boot et Angular, pour la gestion multi-sites des quincailleries.
+
+Objectifs Spécifiques:
+1. Analyse et Conception
+Effectuer une analyse approfondie des besoins (fonctionnels et non fonctionnels) du domaine et réaliser une modélisation complète du système via le langage UML.
+2. Sécurité et Authentification
+Mettre en place un système d'authentification robuste basé sur JWT (JSON Web Token) et Spring Security, assurant la protection des données et la gestion sécurisée des accès.
+3. Gestion des Entités
+Implémenter les fonctionnalités CRUD complètes pour la gestion des utilisateurs, des quincailleries et des produits par leurs propriétaires respectifs.
+
+4. Interface Utilisateur
+Développer une interface utilisateur conviviale et responsive avec Angular 20, offrant à la fois un tableau de bord d'administration riche et une vitrine publique accessible aux visiteurs.
+
+5. Validation
+Tester et valider la solution pour garantir la conformité au cahier des charges en termes de fonctionnalité, de performance et de sécurité.
+
+## Méthodologie adoptée
+
+Pour garantir la qualité, la traçabilité et l'atteinte des objectifs dans un délai contraint, une approche de développement itérative, inspirée de la méthode Agile, a été adoptée. Bien que le projet soit mené individuellement, les principes d'itération, de livraison de fonctionnalités régulières et d'adaptation continue ont guidé le processus.
+Les phases clés du cycle de développement ont inclus:
+
+1. Planification et Analyse : Définition du périmètre, recueil et analyse des besoins (Chapitre 2).
+2. Conception : Modélisation UML, conception de la base de données (Chapitre 2).
+3. Réalisation : Développement du Backend (Spring Boot), du Frontend (Angular) et intégration (Chapitre 3).
+4. Tests et Validation : Tests unitaires, d'intégration et fonctionnels (Chapitre 4).
+
+Les technologies choisies, Spring Boot pour le backend et Angular pour le frontend, s'inscrivent dans une démarche de modernité et de performance, justifiées en détail au Chapitre 1.
+
+## Structure du mémoire
+
+Ce mémoire est organisé en cinq chapitres principaux qui détaillent le processus complet de développement du projet :
+
+- Chapitre I : État de l'Art et Fondements Technologiques : Ce chapitre expose les concepts fondamentaux du domaine, justifie les choix technologiques (Spring Boot, Angular, JWT) et positionne notre solution par rapport à l'existant.
+
+- Chapitre II : Analyse et Conception : Ce chapitre est dédié à la formalisation des besoins fonctionnels et non fonctionnels, suivie de la modélisation détaillée du système à l'aide des diagrammes UML (Cas d'Utilisation, Séquence, Classes) et de la conception de la base de données.
+
+- Chapitre III : Réalisation : Ce chapitre décrit l'environnement de développement et les étapes d'implémentation du Backend (API RESTful avec Spring Boot) et du Frontend (Interface Utilisateur avec Angular), en insistant sur les aspects de sécurité et d'architecture.
+
+- Chapitre IV : Tests et Validation : Ce chapitre présente la stratégie de test adoptée, les scénarios d'exécution et les résultats obtenus, permettant de valider la conformité du produit au cahier des charges.
+
+- Chapitre V : Démonstration et Résultats : Ce chapitre présente l'application en fonctionnement via des captures d'écran commentées et dresse le bilan du projet, en soulignant les objectifs atteints et les difficultés surmontées.
+
+Enfin, une Conclusion Générale synthétise le travail réalisé, évalue les apports du projet et propose des perspectives d'évolution futures.
