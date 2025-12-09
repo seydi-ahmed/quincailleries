@@ -1,4 +1,4 @@
 git add .
-git commit -m "memoire_complet"
+git commit -m "chapitre 1 complet"
 git push gitea
 git push github

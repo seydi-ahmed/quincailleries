@@ -136,3 +136,117 @@ Ce mémoire est organisé en cinq chapitres principaux qui détaillent le proces
 - **Chapitre IV : Tests et Validation** : Ce chapitre présente la stratégie de test adoptée, les scénarios d'exécution et les résultats obtenus, permettant de valider la conformité du produit au cahier des charges.
 - **Chapitre V : Démonstration et Résultats** : Ce chapitre présente l'application en fonctionnement via des captures d'écran commentées et dresse le bilan du projet, en soulignant les objectifs atteints et les difficultés surmontées.
 Enfin, une **Conclusion Générale** synthétise le travail réalisé, évalue les apports du projet et propose des perspectives d'évolution futures.
+
+
+************************
+************************
+************************
+
+# CHAPITRE I : ÉTAT DE L'ART ET FONDEMENTS TECHNOLOGIQUES
+Ce chapitre a pour objectif de contextualiser le projet dans le domaine du Génie Logiciel et de justifier les choix techniques majeurs. Il présente les concepts fondamentaux de la gestion commerciale moderne et détaille les technologies spécifiques (Spring Boot, Angular, JWT, PostgreSQL) qui constituent les piliers de notre plateforme.
+
+## Concepts fondamentaux
+### Systèmes de gestion commerciale
+Un Système de Gestion Commerciale (SGC) est un ensemble de logiciels et de procédures visant à automatiser les opérations de commerce, allant de la gestion des stocks à la facturation, en passant par le suivi des clients. Dans le contexte d'une quincaillerie, un SGC doit particulièrement exceller dans la gestion d'un inventaire hétérogène et volumineux.
+Les fonctions clés d'un SGC moderne comprennent :
+- Gestion des Stocks : Suivi en temps réel des quantités disponibles.
+- Gestion des Achats/Ventes : Traitement des commandes et génération de factures.
+- Catalogue Produits : Organisation structurée et affichage des articles.
+Notre application s'inscrit dans cette lignée en proposant un SGC orienté **multi-entités** (plusieurs quincailleries gérées par un même propriétaire) et **web-centré** (accessibilité via navigateur et vitrine en ligne).
+
+### Applications web modernes
+Les applications web modernes se distinguent des applications traditionnelles par leur architecture dynamique et leur utilisation intensive des technologies **Client-Serveur** basées sur des **API RESTful**.
+- Monopage (SPA - Single Page Application) : L'approche SPA, adoptée par notre Frontend Angular, charge l'ensemble des ressources de la page une seule fois, puis gère les interactions en mettant à jour dynamiquement le contenu via des appels API asynchrones. Cela améliore l'expérience utilisateur et la rapidité perçue.
+- API RESTful : L'Application Programming Interface (API) basée sur l'architecture **REST (REpresentational State Transfer)** utilise les verbes HTTP (GET, POST, PUT, DELETE) pour manipuler les ressources. Elle permet une séparation claire des préoccupations entre le Backend (logique métier et données) et le Frontend (présentation).
+
+### Architecture client-serveur
+L'architecture choisie est l'architecture **3-Tiers**, une variante du modèle Client-Serveur, qui sépare l'application en trois couches logiques :
+1. Couche Présentation (Client) : Le Frontend Angular, responsable de l'interface utilisateur et des interactions.
+2. Couche Métier (Serveur) : Le Backend Spring Boot, qui contient la logique métier, effectue les calculs et applique les règles.
+3. Couche Données (Base de données) : Le SGBD PostgreSQL, qui assure la persistance des données.
+Cette séparation garantit la **modularité**, la **scalabilité** (chaque couche peut être mise à l'échelle indépendamment) et la **maintenabilité** du système.
+
+
+
+## Technologies utilisées
+Le choix de la stack technique, souvent appelée _J-Stack_ ou _Full-Stack Spring/Angular_, est stratégique pour un projet d'entreprise, offrant une combinaison de robustesse, de maturité et de performance.
+
+### Backend : Spring Boot
+#### Spring Boot : Présentation et Avantages
+1. Spring Boot est un framework basé sur l'écosystème Spring qui vise à simplifier la création d'applications Java autonomes et prêtes à l'emploi.
+2. Avantages clés pour le projet :
+- Convention plutôt que Configuration : Réduction drastique du _boilerplate code_ (code récurrent et standard) et de la complexité de configuration.
+- Microservices Ready : Facilitation du développement d'applications modulaires et de services RESTful.
+- Serveur Embarqué : Incorpore un serveur d'applications (Tomcat par défaut), permettant de déployer l'application sous forme de fichier JAR exécutable.
+- Écosystème Riche : Accès immédiat à des modules éprouvés pour la sécurité (Spring Security) et la persistance (Spring Data JPA).
+
+#### Spring Security et JWT
+La sécurité est primordiale pour une plateforme multi-utilisateurs. **Spring Security** est le standard de facto pour la sécurisation des applications Java.
+- **Rôle :** Gérer l'authentification (Qui êtes-vous ?) et l'autorisation (Que pouvez-vous faire ?).
+- **JWT (JSON Web Token) :** Contrairement à un système de session traditionnel, le JWT est une approche _stateless_ (sans état) idéale pour les API REST. Une fois l'utilisateur authentifié, le serveur lui fournit un jeton signé qui contient les informations d'identité et de rôle. Ce jeton est inclus dans chaque requête subséquente, permettant au serveur de vérifier l'identité sans devoir consulter la base de données à chaque fois. Cela améliore la performance et la scalabilité.
+
+#### Spring Data JPA
+- Spring Data JPA (Java Persistence API) simplifie l'implémentation de la couche d'accès aux données.
+- Rôle : Fournit une abstraction sur le modèle de persistance et facilite l'implémentation du **Repository Pattern**.
+- Hibernate : JPA est souvent mis en œuvre par un _ORM_ (Object-Relational Mapping) comme Hibernate, qui mappe les objets Java (Entités) aux tables de la base de données. Il permet d'effectuer des opérations CRUD sans écrire de SQL, améliorant la productivité.
+
+#### PostgreSQL
+- PostgreSQL est un Système de Gestion de Base de Données Relationnelle Objet (SGBDRO) reconnu pour sa robustesse, sa conformité aux standards SQL, et ses fonctionnalités avancées.
+- Justification du choix : Supporte l'intégrité transactionnelle, offre une grande fiabilité pour les données critiques (inventaire, transactions) et gère efficacement les relations complexes inhérentes à un modèle multi-entités.
+
+### Frontend : Angular 20
+#### Angular : Architecture et Composants
+- Angular (développé par Google) est un framework JavaScript/TypeScript pour la construction d'applications web complexes et à grande échelle.
+- Architecture Modulaire : Le projet est organisé en modules, facilitant la séparation des fonctionnalités (ex: `AuthModule`, `StoreModule`, `PublicModule`).
+- Composants : L'interface utilisateur est construite avec des composants, chacun gérant une partie spécifique de l'interface (vue, logique de données). Ce paradigme favorise la réutilisation du code.
+
+#### TypeScript
+- TypeScript est un sur-ensemble de JavaScript qui ajoute le typage statique.
+- Avantages : La vérification des types dès la compilation permet de détecter une grande partie des erreurs avant l'exécution, améliorant la maintenabilité et la qualité du code, ce qui est crucial pour un projet de Génie Logiciel.
+
+#### Programmation Réactive (RxJS)
+Angular utilise la librairie **RxJS (Reactive Extensions for JavaScript)** pour la gestion des flux de données asynchrones (appels API, événements utilisateur). L'utilisation d'Observables et d'Opérateurs simplifie la gestion des données asynchrones, notamment dans les _Services_ Angular qui communiquent avec l'API Spring Boot.
+
+
+
+## Étude comparative
+### Analyse des applications similaires
+Les solutions de gestion commerciale existantes peuvent être classées en trois catégories :
+
+| Catégorie                  | Exemples (Génériques)                         | Limites par Rapport au Projet                                                                                      |
+| :------------------------- | :-------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| **Logiciels Locaux**       | Sage, Quickbooks (versions de base)           | Non web, pas de vitrine publique, gestion multi-site complexe ou coûteuse.                                         |
+| **E-commerce Généraliste** | Shopify, WooCommerce                          | Non spécifiques au métier de la quincaillerie, modèle de données rigide, gestion des stocks souvent moins précise. |
+| **SaaS de Niche**          | Logiciels de gestion d'inventaire spécialisés | Souvent très chers, peu flexibles dans les fonctionnalités et parfois fermés sur les APIs.                         |
+
+### Justification des choix technologiques
+Le tableau ci-dessous synthétise la justification de notre **Stack Full-Stack Spring/Angular** :
+| Composant       | Technologie Choisie   | Justification                                                                                                                        |
+| :-------------- | :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------- |
+| **Backend**     | Spring Boot           | Robustesse, performance, standard de l'industrie pour les applications Java d'entreprise, richesse de l'écosystème (Security, Data). |
+| **Frontend**    | Angular               | Cadre structuré pour les SPAs complexes, utilisation de TypeScript pour la qualité du code, fort soutien communautaire (Google).     |
+| **Sécurité**    | Spring Security + JWT | Modèle de sécurité _stateless_ performant et scalable, idéal pour les API REST.                                                      |
+| **Persistance** | PostgreSQL            | SGBD fiable, conforme aux standards, capable de gérer des données relationnelles complexes et volumineuses.                          |
+| **Langage**     | Java / TypeScript     | Langages typés, modernes, offrant des outils performants pour le développement et la maintenance.                                    |
+
+
+
+## Méthodologies de développement
+### Cycle de vie logiciel
+Le cycle de vie logiciel de ce projet suit un modèle **itératif et incrémental**. Chaque grande fonctionnalité (ex: gestion des utilisateurs, gestion des magasins, vitrine publique) a été traitée comme une itération complète : analyse, conception, implémentation, et test. Cette approche permet une détection précoce des erreurs et une meilleure gestion des imprévus.
+
+### Méthode agile (Scrum-inspirée)
+Bien que le projet soit individuel, les principes de la méthode **Scrum** ont été appliqués pour la gestion du temps et des priorités :
+- **Backlog des fonctionnalités :** Le cahier des charges détaillé (Fourni) a servi de _Product Backlog_.
+- **Sprints :** Le travail a été découpé en mini-sprints (ex: un sprint pour le _setup_ et l'authentification, un autre pour les CRUD).
+- **Développement et Test :** Les tests ont été intégrés directement après chaque phase d'implémentation (approche Test-Driven Development simplifiée).
+Cette discipline a permis de maintenir une qualité de code constante et de respecter les délais impartis pour la réalisation du projet.
+
+
+********************
+********************
+********************
+
+
+# CHAPITRE II : ANALYSE ET CONCEPTION
+Ce chapitre est consacré à l'analyse approfondie des besoins de l'application et à la modélisation du système selon les standards du Génie Logiciel, en utilisant le langage de modélisation unifié (UML) pour poser les bases de la réalisation.
