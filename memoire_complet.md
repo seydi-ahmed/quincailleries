@@ -411,3 +411,153 @@ Une attention particulière a été portée à l'ergonomie (BNF3.0) et au _respo
 *********************
 
 
+# CHAPITRE III : RÉALISATION
+Ce chapitre détaille la mise en œuvre technique de la plateforme, décrivant l'environnement de développement, la structure du code et l'implémentation des fonctionnalités Backend avec Spring Boot et Frontend avec Angular.
+
+## Environnement de développement
+| Élément                    | Version/Outil           | Rôle                                              |
+| :------------------------- | :---------------------- | :------------------------------------------------ |
+| **Système d'Exploitation** | Windows / Linux / macOS | Plateforme de développement                       |
+| **IDE Backend**            | IntelliJ IDEA / VS Code | Environnement de développement Java               |
+| **IDE Frontend**           | VS Code                 | Environnement de développement Angular/TypeScript |
+| **Langages**               | Java 21, TypeScript     | Langages de programmation principaux              |
+| **Backend Framework**      | Spring Boot 3.5.5       | Construction de l'API RESTful                     |
+| **Frontend Framework**     | Angular 20              | Construction de l'Interface Utilisateur (SPA)     |
+| **SGBD**                   | PostgreSQL              | Stockage des données                              |
+| **Outil de Build Java**    | Maven / Gradle          | Gestion des dépendances et du build               |
+| **Gestion de Versions**    | Git / GitHub            | Traçabilité et historique du code                 |
+
+### Configuration du projet Spring Boot
+Le projet a été initialisé via Spring Initializr. Les dépendances cruciales ajoutées au fichier `pom.xml` (Maven) sont :
+- `spring-boot-starter-web` (pour les API REST).
+- `spring-boot-starter-data-jpa` (pour l'ORM avec Hibernate).
+- `spring-boot-starter-security` (pour l'authentification).
+- `postgresql-driver` (pour la connexion à la base de données).
+- `jjwt` (pour la gestion des JSON Web Tokens).
+Le fichier `application.properties` contient la configuration de la connexion à PostgreSQL, l'activation des fonctionnalités JPA et la configuration de la clé secrète du JWT.
+
+### Couche Modèle (Entities et DTOs)
+Les entités (`User`, `HardwareStore`, `Product`) sont annotées avec `@Entity` (JPA) et définissent les relations (@OneToMany, @ManyToOne).
+
+**Exemple d'Entité (HardwareStore.java) :**
+```java
+@Entity
+@Table(name = "hardware_stores")
+public class HardwareStore {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String address;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User owner; // Le propriétaire
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Product> products = new HashSet<>();
+
+    // ... getters et setters
+}
+```
+L'utilisation des **DTOs (Data Transfer Objects)** est systématique pour découpler les entités de la couche API. Par exemple, un `StoreCreationDTO` est utilisé pour la réception des données de création, tandis qu'un `StoreResponseDTO` est utilisé pour le retour vers le client.
+
+### Couche Repository
+Les interfaces `UserRepository`, `HardwareStoreRepository` et `ProductRepository` étendent `JpaRepository`, héritant des méthodes CRUD de base. Des méthodes spécifiques ont été ajoutées pour le besoin métier :
+- `findByUsername(String username)` dans `UserRepository`.
+- `findAllByOwnerId(Long ownerId)` dans `HardwareStoreRepository`.
+
+### Couche Service (Logique Métier)
+La couche Service est annotée avec `@Service` et gère la logique transactionnelle et métier.
+**Exemple de Service (HardwareStoreService) :**
+- Méthodes `createStore(StoreCreationDTO dto, Long userId)` : vérifie que l'utilisateur existe (via `UserRepository`), crée l'entité, applique les règles métier et enregistre le magasin.
+- Méthodes qui incluent des vérifications d'autorisation (e.g., s'assurer que l'utilisateur connecté est bien le propriétaire avant de permettre la modification du magasin).
+
+### Couche Controller (API REST)
+Les contrôleurs, annotés avec `@RestController` et `@RequestMapping`, définissent les _endpoints_ de l'API RESTful.
+**Exemple d'Endpoint (HardwareStoreController) :**
+```java
+@RestController
+@RequestMapping("/api/stores")
+public class HardwareStoreController {
+
+    @Autowired
+    private HardwareStoreService storeService;
+
+    // Endpoint sécurisé : seule l'utilisateur propriétaire peut ajouter un magasin
+    @PostMapping
+    public ResponseEntity<StoreResponseDTO> createStore(@Valid @RequestBody StoreCreationDTO storeDTO,
+                                                        Authentication authentication) {
+        // Le ID utilisateur est extrait du token JWT (objet Authentication)
+        Long userId = ((UserPrincipal) authentication.getPrincipal()).getId();
+        StoreResponseDTO newStore = storeService.createStore(storeDTO, userId);
+        return new ResponseEntity<>(newStore, HttpStatus.CREATED);
+    }
+
+    // Endpoint public : tout le monde peut lister les magasins
+    @GetMapping
+    public ResponseEntity<List<StoreResponseDTO>> getAllStores() {
+        // ...
+    }
+}
+```
+
+### Sécurité (Spring Security et JWT)
+La sécurité est mise en œuvre via une chaîne de filtres Spring Security :
+1.  **Configuration `SecurityConfig` :** Définit les _endpoints_ publics (e.g., `/api/auth/**`, `GET /api/stores`) et les _endpoints_ protégés (e.g., `POST /api/stores`, `DELETE /api/products/**`).
+2.  **Implémentation JWT :**
+    - Un filtre (`JwtAuthenticationFilter`) est ajouté à la chaîne de Spring Security.
+    - Ce filtre intercepte chaque requête, extrait le JWT de l'en-tête `Authorization`, le valide, et crée un objet `Authentication` qui est placé dans le contexte de sécurité de Spring, permettant l'accès aux ressources.
+3.  **Hashage des Mots de Passe :** L'objet `BCryptPasswordEncoder` est injecté et utilisé pour hacher les mots de passe avant leur stockage, assurant qu'ils ne sont jamais stockés en clair.
+
+### Gestion des exceptions
+Un contrôleur global des exceptions (`@ControllerAdvice`) est utilisé pour intercepter les exceptions du Backend (e.g., `ResourceNotFoundException`, `AccessDeniedException`). Il génère des réponses HTTP standardisées (404, 403, 500) avec des messages d'erreur clairs, simplifiant le traitement des erreurs côté Angular.
+
+## 3 Implémentation du Frontend (Angular)
+Le Frontend est une SPA modulaire qui interagit avec l'API REST Spring Boot.
+
+### Structure du projet Angular
+La structure est basée sur l'approche modulaire recommandée par Angular :
+- `src/app/core/` : Services globaux (Auth, Interceptors, Guards).
+- `src/app/shared/` : Composants réutilisables (Footer, Header).
+- `src/app/auth/` : Composants de connexion/inscription.
+- `src/app/store-management/` : Composants de gestion des magasins et produits.
+- `src/app/public/` : Composants de la vitrine publique.
+
+### Services
+Les services Angular encapsulent la logique de communication avec l'API.
+**Exemple : `AuthService`**
+- Méthodes `login(credentials)` et `register(data)` : envoient les requêtes HTTP POST à l'API. En cas de succès, elles stockent le JWT reçu dans le `localStorage` du navigateur.
+- Méthode `getToken()` : récupère le token stocké pour l'ajouter aux requêtes sécurisées.
+
+### Routing et Guards
+Le `AppRoutingModule` gère la navigation. Les **Guards** sont essentiels pour la sécurité côté client.
+- **`AuthGuard` :** Implémente l'interface `CanActivate`. Il vérifie, avant d'activer une route, si l'utilisateur est authentifié (i.e., si un JWT valide est présent). S'il ne l'est pas, il redirige vers la page de connexion, protégeant ainsi le _Dashboard_ et les pages de gestion.
+
+### Intercepteurs HTTP
+L'**HttpInterceptor** est le mécanisme clé pour gérer l'authentification et les erreurs de manière centrale.
+
+**`TokenInterceptor` :**
+- Il intercepte **toutes** les requêtes sortantes.
+- Si un JWT est présent dans le `localStorage`, il clone la requête originale et ajoute l'en-tête `Authorization: Bearer <token>`.
+- Il gère également la gestion des erreurs HTTP (401 Unauthorized, 403 Forbidden) en déconnectant l'utilisateur en cas d'expiration du token.
+
+### Interfaces utilisateur (UX/UI)
+Le développement des interfaces s'est concentré sur la réactivité (`CSS Flexbox`/`Grid` et `Media Queries`) et l'utilisation de **Formulaires Réactifs** d'Angular pour gérer la validation côté client.
+- **Dashboard Propriétaire :** Un aperçu visuel (widgets) des magasins et produits totaux, offrant des liens rapides vers les opérations CRUD.
+- **Vitrine Publique :** Design épuré et _responsive_ pour la consultation des produits par les visiteurs.
+
+## Intégration Frontend-Backend
+L'intégration a nécessité les étapes suivantes :
+1.  **Configuration CORS (Backend) :** Mise en place d'un filtre CORS dans Spring Security pour autoriser les requêtes provenant du domaine Angular (souvent `http://localhost:4200`).
+2.  **Normalisation des DTOs :** Assurer la correspondance exacte entre la structure des objets JSON envoyés par Angular et les classes DTO attendues par les contrôleurs Spring Boot.
+3.  **Tests d'Intégration Manuels :** Utilisation d'outils comme Postman pour vérifier la conformité des _endpoints_ Spring Boot avant l'intégration finale avec Angular.
+Cette étape a confirmé que l'API RESTful servait correctement les données nécessaires, et que la sécurité par JWT fonctionnait de manière bidirectionnelle (token envoyé au login, token réinjecté à chaque requête).
+
+
+**********************
+**********************
+**********************
+
+
