@@ -1,35 +1,40 @@
-## 📋 Plan de Mémoire de Licence
+### **REMERCIEMENTS**
 
-### **PAGE DE GARDE**
-- Titre du mémoire
-- Nom et prénom
-- Année universitaire
-- Nom de l'établissement
-- Filière : Licence Génie Logiciel
-- Encadrant(s)
-
----
-
-### **REMERCIEMENTS** (1 page)
+Je tiens à exprimer ma profonde gratitude à toutes les personnes qui ont contribué de près ou de loin à la réalisation de ce projet et à l’aboutissement de mes études. 
+Mes remerciements s’adressent, en premier lieu, à Dieu, pour la force, le courage et la persévérance qu’il m’a accordés tout au long de ce parcours. 
+J’adresse ma sincère reconnaissance à mon encadrant académique, Mr Boa Diauph YOGANGUINA, pour son soutien constant, sa disponibilité, ses conseils pertinents et son expertise qui ont été d’une aide précieuse pour surmonter les défis techniques et structurer ce mémoire. Son encadrement a été déterminant dans la réussite de ce projet. 
+Je remercie l’ensemble du corps professoral du département de Génie Logiciel de l’École Supérieure des Sciences Appliquées pour la qualité de l’enseignement dispensé, qui a forgé mes compétences et m’a permis d’atteindre le niveau d’expertise requis pour mener à bien ce travail. 
+Enfin, une pensée spéciale à mes parents, ma famille et mes amis, pour leur amour inconditionnel, leurs encouragements incessants et leur soutien moral qui ont été mon pilier durant ces années d’études. 
+À tous ceux qui m’ont soutenu, trouvez dans ce travail le témoignage de ma profonde gratitude et de mon respect. 
 
 ---
 
-### **RÉSUMÉ / ABSTRACT** (1 page)
-- Version française (200-250 mots)
-- Version anglaise (200-250 mots)
-- Mots-clés (5-7 mots)
+### **RÉSUMÉ (français)**
+Le secteur du commerce de détail, notamment celui des quincailleries, fait face à une nécessité croissante de digitalisation pour optimiser sa gestion et étendre sa visibilité. Ce mémoire présente la conception et la réalisation d’une plateforme web robuste et évolutive, nommée Sama_Quincaillerie, visant à centraliser la gestion des stocks, des produits et des informations pour un réseau de quincailleries indépendantes. 
+Le projet répond à la problématique de la gestion éparpillée et du manque de visibilité en offrant aux propriétaires un outil de type Software as a Service (SaaS) pour gérer leurs magasins (CRUD), leurs produits (CRUD) et assurer une vitrine publique consultable par les clients. L’architecture adoptée est de type Client-Serveur, basée sur une API RESTful développée avec Spring Boot 3.5.5 (Backend) pour garantir la performance et la sécurité (via Spring Security et JWT), et une interface utilisateur construite avec Angular 20 (Frontend) pour une expérience utilisateur moderne et responsive. La base de données PostgreSQL assure la persistance et l’intégrité des données structurées autour des entités users, hardware_stores et products. Ce travail démontre l’application concrète des principes du Génie Logiciel, de l’analyse des besoins à la validation par les tests, aboutissant à une solution opérationnelle, sécurisée et modulaire. 
+Mots-clés : Gestion Commerciale, Spring Boot, Angular, API REST, JWT, Quincaillerie, Génie Logiciel, PostgreSQL. 
+
+---
+
+### **ABSTRACT (anglais)**
+The retail sector, particularly the hardware store domain, is increasingly required to digitalize to optimize management and enhance visibility. This thesis presents the design and implementation of a robust and scalable web platform, named [Nom de votre application], aimed at centralizing inventory, product, and information management for a network of independent hardware stores. 
+The project addresses the challenge of scattered management and lack of visibility by offering owners a Software as a Service (SaaS) tool to manage their stores (CRUD), their products (CRUD), and to provide a public showcase accessible to customers. The adopted architecture is Client-Server, based on a RESTful API developed with Spring Boot 3.5.5 (Backend) to ensure performance and security (via Spring Security and JWT), and a user interface built with Angular 20 (Frontend) for a modern and responsive user experience. The PostgreSQL database ensures data persistence and integrity, structured around the users, hardware_stores, and products entities. This work demonstrates the practical application of Software Engineering principles, from requirements analysis to validation through testing, resulting in an operational, secure, and modular solution. 
+Keywords: Commercial Management, Spring Boot, Angular, REST API, JWT, Hardware Store, Software Engineering, PostgreSQL.
 
 ---
 
 ### **SOMMAIRE / TABLE DES MATIÈRES**
+--> GÉNÉRE MOI CECI AUTOMATIQUEMENT
 
 ---
 
 ### **LISTE DES FIGURES ET TABLEAUX**
+--> DIS MOI LESQUELS METTRE
 
 ---
 
 ### **LISTE DES ABRÉVIATIONS**
+--> GÉNÉRE MOI CECI AUTOMATIQUEMENT
 
 ---
 
