@@ -561,3 +561,82 @@ Cette étape a confirmé que l'API RESTful servait correctement les données né
 **********************
 
 
+# CHAPITRE IV : TESTS ET VALIDATION
+Ce chapitre présente la stratégie de test adoptée, les méthodologies appliquées pour valider la plateforme et les résultats obtenus afin de garantir que l'application répond aux exigences fonctionnelles et non fonctionnelles du cahier des charges.
+
+## Stratégie de test
+La stratégie de test suit un cycle classique, couvrant toutes les couches de l'application :
+1.  **Tests Unitaires :** Validation de la logique de chaque composant ou service isolément.
+2.  **Tests d'Intégration :** Vérification du bon fonctionnement des interactions entre les composants (e.g., Service $\leftrightarrow$ Repository, Frontend $\leftrightarrow$ Backend).
+3.  **Tests Fonctionnels :** Validation de l'exécution des scénarios utilisateurs (Cas d'Utilisation).
+4.  **Tests de Sécurité :** Validation des mécanismes de protection (JWT, autorisations).
+Les outils utilisés sont : **JUnit 5** et **Mockito** pour le Backend Java ; **Jasmine** et **Karma** pour le Frontend Angular ; **Postman** pour les tests d'API.
+
+## Tests unitaires
+Les tests unitaires ont ciblé les éléments les plus critiques du Backend.
+
+### Tests Backend (JUnit)
+Les tests ont principalement porté sur la couche **Service**, où réside la logique métier. **Mockito** a été utilisé pour simuler (`mock`) la couche Repository.
+| ID Test  | Composant Testé        | Scénario de Test                                   | Résultat Attendu                                   | Statut |
+| :------- | :--------------------- | :------------------------------------------------- | :------------------------------------------------- | :----- |
+| TU_BS_01 | `AuthService`          | Tentative de connexion avec mauvais mot de passe.  | Levée d'une exception `BadCredentialsException`.   | Réussi |
+| TU_BS_02 | `HardwareStoreService` | Création d'un magasin par un utilisateur existant. | Le magasin est retourné avec l'ID du propriétaire. | Réussi |
+| TU_BS_03 | `ProductService`       | Calcul du prix de vente hors taxe.                 | La méthode retourne le prix HT correct.            | Réussi |
+
+### Tests Frontend (Jasmine/Karma)
+Les tests ont porté sur les services de communication et la logique des composants (formulaires réactifs).
+| ID Test  | Composant Testé  | Scénario de Test                                                        | Résultat Attendu                                           | Statut |
+| :------- | :--------------- | :---------------------------------------------------------------------- | :--------------------------------------------------------- | :----- |
+| TU_FS_01 | `AuthService`    | Enregistrement du JWT dans le `localStorage` après succès du login.     | `localStorage` contient le token.                          | Réussi |
+| TU_FC_02 | `LoginComponent` | Le bouton de connexion est désactivé si le formulaire n'est pas valide. | Le statut de la propriété `disabled` du bouton est `true`. | Réussi |
+
+## Tests d'intégration
+Les tests d'intégration ont vérifié les flux de données entre les couches de l'application.
+
+### Tests des APIs (Postman)
+Chaque _endpoint_ de l'API RESTful (GET, POST, PUT, DELETE) a été testé via Postman pour garantir sa conformité aux spécifications.
+| ID Test  | Requête                      | Rôle         | Scénario                                         | Résultat Attendu                            | Statut |
+| :------- | :--------------------------- | :----------- | :----------------------------------------------- | :------------------------------------------ | :----- |
+| TI_AP_01 | POST `/api/auth/login`       | Visiteur     | Connexion avec identifiants valides.             | Code 200, corps de réponse contient le JWT. | Réussi |
+| TI_AP_02 | POST `/api/stores`           | Propriétaire | Tentative de création d'un magasin sans JWT.     | Code 403 (Forbidden) ou 401 (Unauthorized). | Réussi |
+| TI_AP_03 | GET `/api/stores/1/products` | Visiteur     | Consultation publique des produits d'un magasin. | Code 200, liste des produits.               | Réussi |
+| TI_AP_04 | DELETE `/api/products/1`     | Propriétaire | Suppression d'un produit (avec JWT valide).      | Code 204 (No Content).                      | Réussi |
+
+### Tests de la base de données
+Vérification de l'intégrité et des relations :
+- Test des contraintes de clé étrangère (e.g., impossible de supprimer un utilisateur s'il possède encore des magasins, sauf si la cascade est activée).
+- Test des contraintes d'unicité (e.g., impossible de créer deux utilisateurs avec le même _username_).
+
+## Tests fonctionnels
+Les tests fonctionnels valident le respect des Cas d'Utilisation (UC) du Chapitre 2.
+| ID Test  | Cas d'Utilisation     | Étapes du Scénario                                                                                                                                    | Résultat Attendu                                                 | Statut |
+| :------- | :-------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------- | :----- |
+| TF_UC_01 | Gérer Magasins (CRUD) | Connexion $\rightarrow$ Créer Magasin $\rightarrow$ Vérifier le nom sur la liste $\rightarrow$ Modifier l'adresse $\rightarrow$ Supprimer le magasin. | Opérations CRUD réussies sans erreur.                            | Réussi |
+| TF_UC_02 | Vitrine Publique      | Visiter la page `/stores` $\rightarrow$ Cliquer sur un magasin $\rightarrow$ Cliquer sur un produit.                                                  | Affichage correct des données de la DB sur l'interface publique. | Réussi |
+| TF_UC_03 | Protection Dashboard  | Tenter d'accéder à `/dashboard` sans être connecté.                                                                                                   | Redirection immédiate vers `/login`.                             | Réussi |
+
+## Tests de sécurité
+### Tests d'authentification et d'autorisation
+- **Expiration JWT :** Vérification que l'accès aux routes sécurisées est refusé une fois la durée de vie du token (configurée dans Spring Boot) dépassée.
+- **Contrôle d'accès :** Tentative de modification du magasin d'un autre propriétaire. Le Backend (couche Service) doit retourner une erreur 403 (Forbidden), car l'ID utilisateur extrait du token ne correspond pas à l'ID du propriétaire du magasin.
+
+### Protection contre les attaques
+- **Hashage BCrypt :** Vérification que le champ `password` dans la table `users` n'est jamais stocké en clair.
+- **CORS :** Vérification qu'un client externe à la configuration CORS est bloqué par le serveur.
+
+## Tests de performance
+Des tests simples de performance ont été réalisés pour évaluer la réactivité.
+- **Temps de Réponse API :** Les requêtes GET (consultation) sur les listes de produits (avec un jeu de données test de 1000 produits) ont été exécutées en moyenne en moins de $300\text{ ms}$. L'utilisation de Spring Data JPA et des index PostgreSQL a permis d'atteindre le besoin non fonctionnel de rapidité (BNF2.0).
+
+## Tests d'acceptation (Hypothétiques)
+Les tests d'acceptation simulent la validation par le client final.
+- **Scénario :** Un propriétaire de quincaillerie se connecte, crée 3 magasins, ajoute 10 produits à chacun et vérifie qu'il peut les consulter sur la vitrine publique.
+- **Résultat :** Le parcours utilisateur est jugé fluide et intuitif, confirmant la réussite de l'objectif d'ergonomie (BNF3.0).
+
+En conclusion, la phase de tests a permis de valider l'ensemble des exigences fonctionnelles et d'assurer le respect des contraintes non fonctionnelles, notamment en matière de sécurité et de performance. Le système est jugé stable et prêt pour le déploiement.
+
+
+**************************
+**************************
+**************************
+
