@@ -250,3 +250,164 @@ Cette discipline a permis de maintenir une qualité de code constante et de resp
 
 # CHAPITRE II : ANALYSE ET CONCEPTION
 Ce chapitre est consacré à l'analyse approfondie des besoins de l'application et à la modélisation du système selon les standards du Génie Logiciel, en utilisant le langage de modélisation unifié (UML) pour poser les bases de la réalisation.
+
+## Analyse des besoins
+L'analyse des besoins vise à transformer les exigences du cahier des charges en spécifications précises pour la conception.
+
+### Besoins fonctionnels (BF)
+Les besoins fonctionnels décrivent les services spécifiques que l'application doit rendre aux utilisateurs.
+| ID    | Catégorie                          | Description Détaillée du Besoin (BF)                                                                             | Acteurs                       |
+| :---- | :--------------------------------- | :--------------------------------------------------------------------------------------------------------------- | :---------------------------- |
+| BF1.0 | **Authentification**               | Permettre l'inscription et la connexion sécurisée des utilisateurs (propriétaires).                              | Propriétaire                  |
+| BF2.1 | **Gestion Magasins (CRUD)**        | Permettre au propriétaire de créer, consulter, modifier et supprimer ses quincailleries.                         | Propriétaire                  |
+| BF2.2 | **Gestion Produits (CRUD)**        | Permettre au propriétaire d'ajouter, éditer, lister et supprimer des produits pour une quincaillerie spécifique. | Propriétaire                  |
+| BF3.1 | **Vitrine Publique**               | Afficher la liste de toutes les quincailleries enregistrées.                                                     | Client/Visiteur               |
+| BF3.2 | **Détail Quincaillerie**           | Afficher les informations détaillées d'une quincaillerie, y compris la liste de ses produits.                    | Client/Visiteur               |
+| BF3.3 | **Recherche/Consultation Produit** | Afficher la liste générale des produits et leurs détails, avec des options de filtrage et de recherche.          | Client/Visiteur, Propriétaire |
+| BF4.0 | **Tableau de Bord**                | Fournir un tableau de bord récapitulatif des données (magasins, produits) après connexion.                       | Propriétaire                  |
+
+### Besoins non fonctionnels (BNF)
+Les besoins non fonctionnels décrivent les contraintes et les qualités que le système doit posséder.
+| ID     | Catégorie          | Description Détaillée du Besoin (BNF)                                                                                            | Solution Technique                                                                |
+| :----- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
+| BNF1.0 | **Sécurité**       | Assurer l'authentification sécurisée (JWT, BCrypt) et la protection contre les vulnérabilités web.                               | Spring Security, JWT, BCrypt, Validation côté serveur.                            |
+| BNF2.0 | **Performance**    | Temps de réponse rapide (moins de 2 secondes) pour les opérations courantes (connexion, affichage des listes).                   | Optimisation des requêtes JPA, architecture API REST légère.                      |
+| BNF3.0 | **Ergonomie**      | Interface utilisateur intuitive, claire et agréable.                                                                             | Angular, Design Responsive, Composants UI modernes.                               |
+| BNF4.0 | **Maintenabilité** | Code modulaire, bien documenté et facile à faire évoluer.                                                                        | Architecture 3-Tiers, Utilisation de DTOs, Conventions de codage Java/TypeScript. |
+| BNF5.0 | **Compatibilité**  | Application fonctionnelle sur tous les navigateurs modernes (Chrome, Firefox, Edge) et sur divers appareils (Responsive Design). | Angular, Configuration CORS.                                                      |
+
+## Acteurs du système
+Les acteurs définissent les rôles qui interagissent directement avec le système.
+1. Propriétaire de Quincaillerie (Utilisateur Authentifié) : Personne possédant un compte et ayant l'autorité pour gérer une ou plusieurs quincailleries. Il peut créer, modifier et supprimer ses magasins et leurs produits.
+2. Client / Visiteur (Utilisateur Non Authentifié) : Toute personne naviguant sur l'interface publique. Il peut consulter les listes et les détails des quincailleries et de leurs produits.
+
+## Modélisation UML
+La modélisation UML (Unified Modeling Language) permet de visualiser, spécifier, construire et documenter les artefacts d'un système logiciel.
+
+### Diagrammes de cas d'utilisation
+Le diagramme de cas d'utilisation (UC) présente une vue globale des fonctionnalités du système du point de vue des acteurs.
+
+**Diagramme de Cas d'Utilisation Global**
+
+- _(Cette section sera illustrée par un Diagramme UML. La description textuelle fournit le contenu du diagramme.)_
+
+| Acteur              | Cas d'Utilisation Principal | Cas d'Utilisation Détaillé (Inclus/Étendu)                                                                          |
+| :------------------ | :-------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| **Propriétaire**    | **Gérer Magasins**          | Créer Magasin, Consulter Magasin, Modifier Magasin, Supprimer Magasin.                                              |
+|                     | **Gérer Produits**          | Ajouter Produit, Consulter Produit, Modifier Produit, Supprimer Produit.                                            |
+|                     | **Accès au Dashboard**      | Se Connecter, Se Déconnecter.                                                                                       |
+| **Client/Visiteur** | **Consulter Vitrine**       | Afficher Liste Quincailleries, Afficher Détails Quincaillerie, Consulter Liste Produits, Consulter Détails Produit. |
+| **Système**         | **Authentification**        | (Inclus par Gérer Magasins, Gérer Produits)                                                                         |
+
+### Diagrammes de séquence
+Le diagramme de séquence illustre l'ordre chronologique des messages (appels d'API) échangés entre les acteurs, le Frontend (Angular), le Backend (Spring Boot), la Couche Sécurité (JWT) et la Base de Données (PostgreSQL).
+
+**Exemple : Diagramme de Séquence pour l'Authentification (Connexion)**
+1.  **Acteur (Propriétaire)** : Envoie des identifiants (username/password) au Frontend.
+2.  **Frontend (Angular Component)** : Appel à `AuthService.login(credentials)`.
+3.  **Frontend (Auth Service)** : Envoie une requête **POST** à `/api/auth/login`.
+4.  **Backend (Auth Controller)** : Reçoit la requête, délègue à `AuthService`.
+5.  **Backend (Auth Service)** : Vérifie les identifiants via **Spring Security** (comparaison du mot de passe BCrypté).
+6.  **Backend (Spring Security / JWT Provider)** : Si succès, génère un **JWT** signé.
+7.  **Backend (Auth Controller)** : Retourne une réponse HTTP 200 avec le **JWT** dans le corps.
+8.  **Frontend (Auth Service)** : Récupère le JWT, le stocke localement (LocalStorage).
+9.  **Frontend (Angular Component)** : Redirige l'utilisateur vers le Tableau de Bord (Dashboard).
+
+**Exemple : Diagramme de Séquence pour la Création d'un Magasin**
+1.  **Acteur (Propriétaire)** : Soumet le formulaire d'ajout de magasin au Frontend.
+2.  **Frontend (Component)** : Appel à `StoreService.createStore(storeData)`.
+3.  **Frontend (Interceptor)** : Intercepte la requête, ajoute le **JWT** dans l'en-tête `Authorization: Bearer <token>`.
+4.  **Frontend (Store Service)** : Envoie une requête **POST** à `/api/stores`.
+5.  **Backend (Security Filter)** : Intercepte la requête, valide la signature du **JWT** et extrait l'ID de l'utilisateur (le propriétaire).
+6.  **Backend (Store Controller)** : Reçoit la requête, délègue à `StoreService`.
+7.  **Backend (Store Service)** : Crée l'objet `HardwareStore`, l'associe à l'entité `User` identifiée par le JWT.
+8.  **Backend (Store Repository)** : Persiste la nouvelle entité dans la base de données (PostgreSQL).
+9.  **Backend (Store Controller)** : Retourne une réponse HTTP 201 (Created).
+
+### Diagrammes de classes
+Le diagramme de classes est le squelette structurel de l'application, représentant le Modèle Conceptuel de Données (MCD) et les relations entre les entités.
+
+- _(Cette section sera illustrée par un Diagramme UML. La description textuelle détaille les entités et relations clés.)_
+
+| Entité            | Attributs Clés                                                                                    | Rôles et Relations                                                                                                                                           |
+| :---------------- | :------------------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **User**          | id, username (unique), password (BCrypt), email, role, created_at                                 | \*_1.._ (One-to-Many) vers HardwareStore :\*\* Un utilisateur peut posséder plusieurs magasins.                                                              |
+| **HardwareStore** | id, name, address, phone, description, created_at, user_id                                        | **1 (One-to-One) vers User :** Un magasin appartient à un seul utilisateur. \*_1.._ (One-to-Many) vers Product :\*\* Un magasin contient plusieurs produits. |
+| **Product**       | id, name, reference (unique par magasin), description, price, stock_quantity, image_url, store_id | **1 (One-to-One) vers HardwareStore :** Un produit appartient à un seul magasin.                                                                             |
+
+### Diagrammes d'activité (Processus métier principaux)
+Le diagramme d'activité illustre le flux d'exécution lors d'un processus métier clé, comme l'ajout d'un nouveau produit, en montrant les actions, les états et les transitions.
+
+**Exemple : Processus d'Ajout d'un Produit**
+1.  **[Début]**
+2.  **[Activité]** : Le Propriétaire clique sur "Ajouter un Produit".
+3.  **[Activité]** : Le Système affiche le formulaire d'ajout (choix du magasin, nom du produit, prix, quantité, etc.).
+4.  **[Activité]** : Le Propriétaire saisit les données et soumet.
+5.  **[Décision]** : Les données sont-elles valides (côté client, puis côté serveur) ?
+    - **[Oui]** : Le Système envoie la requête API. Le Backend effectue la validation finale.
+      - **[Fusion]** : Les données sont persistées dans `Product` (lié à `HardwareStore`).
+      - **[Activité]** : Le Système confirme le succès de l'ajout.
+    - **[Non]** : Le Système affiche un message d'erreur de validation.
+6.  **[Fin]**
+
+## Conception de la base de données
+La conception de la base de données s'appuie directement sur le Diagramme de Classes. Le choix de **PostgreSQL** est validé pour sa gestion robuste des relations.
+
+### Schéma relationnel (Modèle Physique des Données - MPD)
+Le MPD est la traduction concrète du MCD en tables et colonnes.
+
+| Table               | Colonnes                                                                                                                                                                                                   | Contraintes Clés                         |
+| :------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------- |
+| **users**           | `id` (PK), `username` (VARCHAR, UNIQUE), `password` (VARCHAR, NOT NULL), `email` (VARCHAR, UNIQUE), `role` (VARCHAR), `created_at` (TIMESTAMP)                                                             | PK: id, UK: username, UK: email          |
+| **hardware_stores** | `id` (PK), `name` (VARCHAR), `address` (VARCHAR), `phone` (VARCHAR), `description` (TEXT), `user_id` (FK vers users.id), `created_at` (TIMESTAMP)                                                          | PK: id, FK: user_id (ON DELETE CASCADE)  |
+| **products**        | `id` (PK), `name` (VARCHAR), `reference` (VARCHAR, UNIQUE dans store), `description` (TEXT), `price` (NUMERIC), `stock_quantity` (INTEGER), `image_url` (VARCHAR), `store_id` (FK vers hardware_stores.id) | PK: id, FK: store_id (ON DELETE CASCADE) |
+
+### Dictionnaire de données
+Le dictionnaire de données documente chaque colonne pour assurer la cohérence.
+
+**Exemple : Table `products`**
+| Champ            | Type SQL       | Type Java/TS | Description                            | Contraintes                    |
+| :--------------- | :------------- | :----------- | :------------------------------------- | :----------------------------- |
+| `id`             | SERIAL         | Long         | Clé primaire auto-incrémentée          | PK, NOT NULL                   |
+| `name`           | VARCHAR(255)   | String       | Nom du produit                         | NOT NULL                       |
+| `reference`      | VARCHAR(50)    | String       | Code unique du produit dans le magasin | UNIQUE (avec store_id)         |
+| `price`          | NUMERIC(10, 2) | BigDecimal   | Prix de vente TTC                      | NOT NULL, $\ge 0$              |
+| `stock_quantity` | INTEGER        | Integer      | Quantité en stock                      | NOT NULL, $\ge 0$              |
+| `store_id`       | BIGINT         | Long         | Clé étrangère vers la quincaillerie    | FK (hardware_stores), NOT NULL |
+
+## Architecture de l'application
+
+### Architecture globale (Schéma 3-Tiers)
+L'architecture est celle d'une application **distribuée et 3-tiers**.
+- **Tiers 1 : Client (Angular)** : Le navigateur du visiteur/propriétaire. Il envoie des requêtes HTTP/HTTPS.
+- **Tiers 2 : Application (Spring Boot)** : Le serveur d'application. Il contient la logique métier, la sécurité (JWT), et l'API REST.
+- **Tiers 3 : Données (PostgreSQL)** : La base de données relationnelle accessible uniquement par le Tiers 2.
+
+### Architecture Backend (Couches)
+Le Backend Spring Boot est structuré en couches pour respecter le principe de séparation des préoccupations :
+1.  **Couche Controller (API) :** Point d'entrée des requêtes HTTP. Elle mappe les requêtes aux méthodes et ne contient aucune logique métier. Elle gère la sérialisation/désérialisation (DTOs).
+2.  **Couche Service (Logique Métier) :** Contient toute la logique métier. Elle coordonne les opérations et s'assure de l'application des règles de gestion (ex: vérification des droits, des contraintes, gestion des transactions).
+3.  **Couche Repository (DAO) :** Interface avec la base de données via Spring Data JPA. Elle abstrait les requêtes SQL/JPQL.
+4.  **Couche Modèle (Entities/DTOs) :** Les entités (représentation des tables) et les DTOs (Data Transfer Objects) pour l'échange de données avec le client.
+
+### Architecture Frontend (Modules)
+Le Frontend Angular est organisé de manière modulaire :
+- **Module Racine (`AppModule`)** : Point de départ de l'application.
+- **Modules Fonctionnels (`AuthModule`, `StoreModule`, `ProductModule`)** : Chaque module regroupe les composants, les services et les routes liés à une fonctionnalité spécifique.
+- **Module de Base (`CoreModule`)** : Contient les services globaux (ex: `AuthService`, `HttpInterceptor`, `Guards`).
+- **Module Partagé (`SharedModule`)** : Contient les composants réutilisables (ex: en-tête, pied de page, composants de formulaire).
+
+## Conception des interfaces
+Une attention particulière a été portée à l'ergonomie (BNF3.0) et au _responsive design_.
+- **Wireframes (Maquettes) :** Création de schémas de base pour l'écran de Connexion, le Tableau de Bord Propriétaire, la page de détail d'une Quincaillerie et la Vitrine Publique.
+- **Charte Graphique :** Utilisation de couleurs sobres et professionnelles (bleu et blanc pour la clarté) et d'une librairie de composants UI pour garantir la cohérence visuelle.
+- **Navigation :** La navigation a été structurée autour de l'état d'authentification de l'utilisateur.
+  - **Visiteur :** Accès limité aux pages publiques (`/stores`, `/products`, `/login`, `/register`).
+  - **Propriétaire :** Accès protégé par des **Guards** Angular aux routes privées (`/dashboard`, `/my-stores`, `/manage-products`).
+
+
+*********************
+*********************
+*********************
+
+
