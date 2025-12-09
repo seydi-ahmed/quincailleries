@@ -640,3 +640,69 @@ En conclusion, la phase de tests a permis de valider l'ensemble des exigences fo
 **************************
 **************************
 
+# CHAPITRE V : DÉMONSTRATION ET RÉSULTATS
+Ce chapitre est dédié à la présentation concrète de l'application réalisée, à l'analyse des résultats obtenus et à la discussion des objectifs du projet.
+
+## Présentation de l'application
+La plateforme **[Nom de votre application]** est présentée à travers ses interfaces principales, offrant une double perspective : le client/visiteur (vitrine publique) et le propriétaire (tableau de bord sécurisé).
+
+### La Vitrine Publique
+_(Cette section sera illustrée par des figures : Figure 5.1 (Liste des Quincailleries), Figure 5.2 (Détails d'un Produit).)_
+- **Page d'Accueil/Liste des Quincailleries :** L'utilisateur non connecté accède immédiatement à la liste de toutes les quincailleries enregistrées. Chaque carte de magasin affiche le nom, l'adresse et une brève description. (BF3.1)
+- **Page Détail Quincaillerie :** En cliquant sur un magasin, l'utilisateur accède à une page détaillée qui liste tous les produits disponibles dans ce point de vente, facilitant la recherche locale. (BF3.2)
+- **Consultation Produit :** Une fonctionnalité de recherche et de filtrage (par nom, par prix) est disponible sur la liste générale des produits. La consultation du détail d'un produit affiche son prix, sa description et l'état du stock (si la politique du magasin le permet, ou juste "disponible"). (BF3.3)
+
+### Le Tableau de Bord (Dashboard) du Propriétaire
+_(Cette section sera illustrée par des figures : Figure 5.3 (Tableau de Bord), Figure 5.4 (Formulaire de Gestion des Produits).)_
+- **Tableau de Bord Sécurisé :** Après connexion via le formulaire sécurisé (Figure 5.3), le propriétaire accède à son _Dashboard_ personnel. Ce tableau affiche des indicateurs clés (nombre de magasins gérés, nombre total de produits) et offre un menu de navigation clair pour les opérations de gestion. (BF4.0)
+- **Interface de Gestion des Magasins (CRUD) :** Des formulaires simples et réactifs permettent au propriétaire de créer, modifier et supprimer ses quincailleries. La relation **One-to-Many** entre l'utilisateur et ses magasins est strictement appliquée par le Backend. (BF2.1)
+- **Interface de Gestion des Produits (CRUD) :** L'interface de gestion des produits permet l'ajout (avec choix du magasin), l'édition du stock et du prix, et la suppression. L'implémentation de formulaires réactifs avec validation côté client et serveur assure l'intégrité des données. (BF2.2)
+
+## Fonctionnalités implémentées
+Le tableau suivant récapitule la couverture du cahier des charges par la solution réalisée.
+| ID Exigence | Description Fonctionnalité  | Réalisation Technique                                                       | Statut  |
+| :---------- | :-------------------------- | :-------------------------------------------------------------------------- | :------ |
+| BF1.0       | Inscription / Connexion     | Implémenté via Spring Security et JWT.                                      | Atteint |
+| BF2.1       | Gestion des Magasins (CRUD) | **Spring Boot Controllers/Services** sécurisés par l'ID utilisateur du JWT. | Atteint |
+| BF2.2       | Gestion des Produits (CRUD) | **Angular Reactive Forms** et **API REST** sécurisée.                       | Atteint |
+| BF3.1-3.3   | Vitrine Publique            | **Angular Components** appelant des endpoints GET non sécurisés.            | Atteint |
+| BNF1.0      | Sécurité JWT / BCrypt       | `JwtAuthenticationFilter` et `BCryptPasswordEncoder` en place.              | Atteint |
+| BNF3.0      | Ergonomie Responsive        | Interface responsive grâce à Angular/CSS.                                   | Atteint |
+Le projet a réussi à implémenter **100% des fonctionnalités critiques** définies dans le cahier des charges initial.
+
+## Analyse des résultats
+### Objectifs atteints
+1.  **Séparation des Préoccupations :** L'architecture 3-Tiers avec Spring Boot et Angular a été un succès, permettant un développement et un déploiement indépendants du Frontend et du Backend.
+2.  **Sécurité :** La mise en place de JWT pour une authentification _stateless_ a permis de créer un système d'API sécurisé et performant, réduisant la charge sur le serveur en évitant la gestion de sessions côté serveur.
+3.  **Gestion Multi-Entités :** Le modèle de données (User 1 $\rightarrow$ N Stores) a été correctement implémenté et validé, assurant que chaque propriétaire ne gère que ses propres quincailleries et produits, même au niveau de la couche d'accès aux données.
+
+### Difficultés rencontrées
+1.  **Gestion du Contexte de Sécurité (Backend) :** La principale difficulté résidait dans l'intégration de Spring Security et JWT, notamment la configuration des filtres pour autoriser les requêtes publiques tout en protégeant les routes privées, et l'extraction de l'ID utilisateur à partir du token pour appliquer l'autorisation au niveau du service.
+2.  **Intégration Asynchrone (Frontend) :** La gestion des appels API asynchrones avec **RxJS (Observables)** en Angular a nécessité une courbe d'apprentissage rigoureuse, en particulier pour l'interception des erreurs (401, 403) et la gestion des flux de données dans l'application.
+
+### Solutions apportées
+1.  **Sécurité :** L'utilisation du mécanisme `UserPrincipal` dans Spring Security a permis d'injecter facilement les données de l'utilisateur (ID, Rôles) directement dans la signature des méthodes des contrôleurs (`Authentication authentication`), simplifiant l'application de la logique de propriété.
+2.  **Intégration :** L'utilisation de l'`HttpInterceptor` dans Angular a centralisé la gestion des tokens et des erreurs, réduisant la redondance de code dans les différents services d'API.
+
+## Avantages de la solution
+La plateforme **[Nom de votre application]** apporte des avantages significatifs par rapport aux solutions traditionnelles :
+
+### Pour les Propriétaires
+- **Centralisation :** Un seul point d'accès pour gérer les produits, les stocks et les informations de plusieurs quincailleries.
+- **Visibilité et Contrôle :** Vue globale et en temps réel de l'inventaire.
+- **Accessibilité :** Accès de n'importe où via un navigateur web grâce à l'architecture web.
+
+### Pour les Clients
+- **Information en Temps Réel :** Possibilité de vérifier en ligne si un produit est disponible dans une quincaillerie avant de se déplacer.
+- **Clarté :** Interface simple et intuitive pour la recherche.
+
+### Pour le Commerce de Détail
+- **Modernisation :** Positionne les quincailleries comme des commerces à la pointe de la technologie.
+- **Évolutivité :** L'architecture modulaire Spring Boot/Angular permet l'ajout facile de nouvelles fonctionnalités (gestion des commandes, statistiques avancées, etc.).
+
+
+**********************
+**********************
+**********************
+
+
