@@ -24,42 +24,42 @@ GÉNÉRÉ AUTOMATIQUEMENT À LA FIN
 
 
 # LISTE DES FIGURES
-Figure 1.1 – Architecture client-serveur classique
-Figure 1.2 – Cycle de vie d’une requête dans Spring Boot
-Figure 2.1 – Diagramme de cas d’utilisation global du système
+Figure 1.1 – Architecture client-serveur classique                                  ==> done
+Figure 1.2 – Cycle de vie d’une requête dans Spring Boot                            ==> done
+Figure 2.1 – Diagramme de cas d’utilisation global du système                       ==> done
 Figure 2.2 – Diagramme de cas d’utilisation – Acteur Propriétaire
-Figure 2.3 – Diagramme de séquence – Processus d’authentification
-Figure 2.4 – Diagramme de séquence – Création d’une quincaillerie
+Figure 2.3 – Diagramme de séquence – Processus d’authentification                   ==> done
+Figure 2.4 – Diagramme de séquence – Création d’une quincaillerie                   ==> done
 Figure 2.5 – Diagramme de séquence – Ajout d’un produit
 Figure 2.6 – Diagramme de séquence – Consultation publique d’un produit
-Figure 2.7 – Diagramme de classes complet du domaine
-Figure 2.8 – Diagramme d’activité – Ajout d’un produit
-Figure 2.9 – Modèle Entité-Association (MEA)
-Figure 2.10 – Architecture globale 3-tiers de Sama_Quincaillerie
-Figure 2.11 – Wireframe – Page d’accueil publique
-Figure 2.12 – Wireframe – Dashboard propriétaire
-Figure 3.1 – Structure du projet backend Spring Boot
-Figure 3.2 – Flux complet d’authentification JWT
-Figure 3.3 – Structure modulaire du projet Angular
-Figure 5.1 – Page de connexion et inscription
-Figure 5.2 – Dashboard du propriétaire après connexion
-Figure 5.3 – Formulaire de création d’une quincaillerie
-Figure 5.4 – Gestion des produits d’un magasin
-Figure 5.5 – Vitrine publique – Vue liste
-Figure 5.6 – Vitrine publique – Vue détaillée d’un produit
-Figure 5.7 – Version responsive sur smartphone
+Figure 2.7 – Diagramme de classes complet du domaine                                ==> done
+Figure 2.8 – Diagramme d’activité – Ajout d’un produit                              ==> done
+Figure 2.9 – Modèle Entité-Association (MEA)                                        ==> 
+Figure 2.10 – Architecture globale 3-tiers de Sama_Quincaillerie                    ==> done
+Figure 2.11 – Wireframe – Page d’accueil publique                                   ==> done
+Figure 2.12 – Wireframe – Dashboard propriétaire                                    ==> done
+Figure 3.1 – Structure du projet backend Spring Boot                                ==> done
+Figure 3.2 – Flux complet d’authentification JWT                                    ==> 
+Figure 3.3 – Structure modulaire du projet Angular                                  ==> done
+Figure 5.1 – Page de connexion et inscription                                       ==> done
+Figure 5.2 – Dashboard du propriétaire après connexion                              ==> done
+Figure 5.3 – Formulaire de création d’une quincaillerie                             ==> 
+Figure 5.4 – Gestion des produits d’un magasin                                      ==> done
+Figure 5.5 – Vitrine publique – Vue liste                                           ==> done
+Figure 5.6 – Vitrine publique – Vue détaillée d’un produit                          ==> done
+Figure 5.7 – Version responsive sur smartphone                                      ==> 
 
 # LISTE DES TABLEAUX
 Tableau 1.1 – Comparaison des principaux frameworks backend (2025)
 Tableau 1.2 – Comparaison des solutions existantes de gestion commerciale
-Tableau 2.1 – Besoins fonctionnels détaillés
-Tableau 2.2 – Besoins non fonctionnels
+Tableau 2.1 – Besoins fonctionnels détaillés                                        ==> done
+Tableau 2.2 – Besoins non fonctionnels                                              ==> done
 Tableau 2.3 – Dictionnaire de données – Entité User
 Tableau 2.4 – Dictionnaire de données – Entité HardwareStore
-Tableau 2.5 – Dictionnaire de données – Entité Product
-Tableau 4.1 – Exemples de tests unitaires backend (JUnit 5 + Mockito)
+Tableau 2.5 – Dictionnaire de données – Entité Product                              ==> done
+Tableau 4.1 – Exemples de tests unitaires backend (JUnit 5 + Mockito)               ==> done
 Tableau 4.2 – Couverture de code obtenue
-Tableau 4.3 – Scénarios de tests fonctionnels principaux
+Tableau 4.3 – Scénarios de tests fonctionnels principaux                            ==> done
 Tableau 4.4 – Résultats des tests de performance (JMeter – 200 utilisateurs)
 Tableau 5.1 – Tableau de conformité : Cahier des charges vs Réalisé
 
