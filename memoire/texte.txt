@@ -1,0 +1,35 @@
+Slide 1 - Titre
+"Bonjour à tous. Je me présente, je suis [votre nom], étudiant en Licence 3 Informatique. Aujourd'hui, je vais vous présenter mon projet de fin d'études : SenQuincaillerie, une application web de gestion de quincaillerie développée avec Spring Boot et Angular."
+
+Slide 2 - Plan
+"Voici le plan de ma présentation. Nous allons parcourir le contexte et la problématique, les objectifs, les technologies utilisées, l'architecture, la conception, la réalisation, les tests, une démonstration, et enfin la conclusion."
+
+Slide 3 - Contexte
+"Le secteur de la quincaillerie au Sénégal fait face à plusieurs défis : une gestion manuelle des stocks source d'erreurs, un suivi des ventes inefficace, et une traçabilité des opérations limitée. Ces problèmes entraînent des pertes financières et une mauvaise expérience client."
+
+Slide 4 - Objectifs
+"L'objectif principal est de développer une application web complète. Les objectifs spécifiques incluent : automatiser la gestion des stocks avec alertes, sécuriser l'accès via l'authentification JWT, générer des rapports de vente, et offrir une interface intuitive et responsive."
+
+Slide 5 - Technologies
+"Côté backend, j'utilise Spring Boot avec Spring Security et Spring Data JPA. Pour le frontend, Angular 20 avec TypeScript. La base de données est PostgreSQL, et la sécurité repose sur JWT pour l'authentification stateless."
+
+Slide 6 - Architecture
+"J'ai adopté une architecture 3-tiers : la couche présentation avec Angular, la couche métier avec Spring Boot exposant une API REST, et la couche données avec PostgreSQL. Cette séparation assure maintenabilité et scalabilité."
+
+Slide 7 - Conception
+"La conception UML comprend : un diagramme de cas d'utilisation montrant les interactions utilisateurs, un diagramme de classes détaillant les entités métier, et un diagramme de séquence illustrant le flux d'authentification."
+
+Slide 8 - Réalisation
+"Le backend expose des endpoints REST sécurisés pour les produits, ventes et utilisateurs. Le frontend offre un dashboard avec statistiques temps réel, la gestion des produits avec CRUD complet, et un système de vente avec calcul automatique."
+
+Slide 9 - Tests
+"J'ai effectué des tests unitaires avec JUnit et Mockito, des tests d'intégration pour les API, et des tests fonctionnels validant les scénarios métier. Le taux de couverture atteint 85%."
+
+Slide 10 - Démonstration
+"Je vais maintenant vous montrer l'application en action : la connexion sécurisée, le dashboard, la gestion des produits et le processus de vente."
+
+Slide 11 - Conclusion
+"En conclusion, tous les objectifs ont été atteints. Les perspectives d'amélioration incluent : une application mobile, l'intégration de paiements en ligne, et un module de prédiction des ventes par IA."
+
+Slide 12 - Remerciements
+"Je remercie mon encadreur M. Mamadou DIALLO pour son accompagnement, ainsi que le jury pour son attention. Je suis maintenant disponible pour vos questions."
