@@ -745,5 +745,31 @@ Ce projet marque l'achèvement d'un cycle d'apprentissage et le point de départ
 ********************
 ********************
 
-
 # BIBLIOGRAPHIE / WEBOGRAPHIE
+_(Cette section doit être remplie avec les sources réelles utilisées. Voici un exemple des catégories de sources à inclure, formatées selon la norme courante (ex: APA/ISO 690) :)_
+
+## Ouvrages et Manuels
+1.  **FOWLER, Martin.** _UML Distilled: A Brief Guide to the Standard Object Modeling Language._ Addison-Wesley Professional, 3ème édition, 2004.
+2.  **GAMMA, Erich, et al.** _Design Patterns: Elements of Reusable Object-Oriented Software._ Addison-Wesley Professional, 1994.
+3.  **BLOCH, Joshua.** _Effective Java._ Addison-Wesley Professional, 3ème édition, 2018.
+
+## Articles et Publications
+4.  **FIELDING, Roy Thomas.** _Architectural Styles and the Design of Network-based Software Architectures._ Ph.D. Dissertation, University of California, Irvine, 2000 (Définition de REST).
+
+## Ressources Web et Documentation Technique
+5.  **Documentation Officielle Spring Boot.** _Spring Boot Reference Documentation._ [https://docs.spring.io/spring-boot/documentation.html](https://docs.spring.io/spring-boot/documentation.html)
+6.  **Documentation Officielle Angular.** _Angular Documentation._ [https://angular.io/docs](https://angular.io/docs)
+7.  **Documentation Officielle PostgreSQL.** _PostgreSQL Documentation._ [https://www.postgresql.org/docs/](https://www.postgresql.org/docs/)
+8.  **Site Officiel JWT.** _Introduction to JSON Web Tokens._ [https://jwt.io/introduction](https://jwt.io/introduction)
+9.  **Ressources sur les Patrons de Conception.** [https://refactoring.guru/fr/design-patterns](https://refactoring.guru/fr/design-patterns)
+
+
+*************************************
+*************************************
+*************************************
+*************************************
+*************************************
+*************************************
+
+
+ceci est la version ".md" de mon mémoire. je veux que tu me fasses la version ".word" au complet. Les "#" et autres deviennent des numéros. le fichier doit être au complet.

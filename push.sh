@@ -1,4 +1,4 @@
 git add .
-git commit -m "conclusion complet"
+git commit -m "grandes lignes au complet"
 git push gitea
 git push github
