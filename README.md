@@ -94,10 +94,6 @@ hardware/
 └── docker-compose.yml     # Configuration multi-containers
 ```
 
-## 📋 API Endpoints
-
-Pour la documentation complète des endpoints API, consultez le fichier [Endpoints.md](Endpoints.md).
-
 ## 🔐 Sécurité
 
 - Authentification JWT avec expiration des tokens

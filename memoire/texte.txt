@@ -1,5 +1,5 @@
 Slide 1 - Titre
-"Bonjour à tous. Je me présente, je suis [votre nom], étudiant en Licence 3 Informatique. Aujourd'hui, je vais vous présenter mon projet de fin d'études : SenQuincaillerie, une application web de gestion de quincaillerie développée avec Spring Boot et Angular."
+"Bonjour à tous. Je me présente, je suis Mouhamed Diouf, étudiant en Licence 3 Informatique. Aujourd'hui, je vais vous présenter mon projet de fin d'études : SenQuincaillerie, une application web de gestion de quincaillerie développée avec Spring Boot et Angular."
 
 Slide 2 - Plan
 "Voici le plan de ma présentation. Nous allons parcourir le contexte et la problématique, les objectifs, les technologies utilisées, l'architecture, la conception, la réalisation, les tests, une démonstration, et enfin la conclusion."
@@ -32,4 +32,4 @@ Slide 11 - Conclusion
 "En conclusion, tous les objectifs ont été atteints. Les perspectives d'amélioration incluent : une application mobile, l'intégration de paiements en ligne, et un module de prédiction des ventes par IA."
 
 Slide 12 - Remerciements
-"Je remercie mon encadreur M. Mamadou DIALLO pour son accompagnement, ainsi que le jury pour son attention. Je suis maintenant disponible pour vos questions."
+"Je remercie mon encadreur M. Yoganguina pour son accompagnement, ainsi que le jury pour son attention. Je suis maintenant disponible pour vos questions."
